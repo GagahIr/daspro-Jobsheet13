@@ -5,14 +5,15 @@ public class krsfiza {
     static int data = 0;
 
     public static void tambahData(Scanner sc) {
+        String kodeMatkul, namaMatkul, jumlahSks;
         System.out.println("--- Tambah Data KRS ---");
         System.out.print("nama mahasiswa: ");
+        sc.nextLine();
         String nama = sc.nextLine();
         System.out.print("NIM: ");
         String nim = sc.nextLine();
 
         for (int i = 0; i < krs.length; i++) {
-            String kodeMatkul, namaMatkul, jumlahSks;
 
             while (true) {
                 System.out.print("Kode matkul: ");
@@ -45,29 +46,23 @@ public class krsfiza {
                 break;
             }
         }
-
     }
 
     public static void tampilData(Scanner sc) {
-
         String nim;
         System.out.println("--- Tampilkan Daftar KRS Mahasiswa");
         System.out.print("Masukkan NIM Mahasiswa : ");
-        nim = sc.nextLine();
+        nim = sc.next();
 
-        boolean search = false;
         System.out.println("\ndata mata kuliah");
         System.out.printf("%s\t %s\t %s \t %s \t %s", "NIM", "Nama", "Kode Matkul", "Nama matkul", "Jumlah SKS");
         System.out.println();
         for (int i = 0; i < data; i++) {
             if (nim.equals(krs[i][0])) {                
-                System.out.printf("%s \t %s\t %s\t %s \t %s", krs[i][0], krs[i][1], krs[i][2], krs[i][3], krs[i][4]);
+                System.out.printf("%s \t %s\t %s\t\t %s \t %s", krs[i][0], krs[i][1], krs[i][2], krs[i][3], krs[i][4]);
                 System.out.println();
-                
             }
-
         }
-
     }
 
     public static void main(String[] args) {
