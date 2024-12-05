@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class krsdiyah {
+public class index {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int pilihan = 0;
@@ -16,7 +16,7 @@ public class krsdiyah {
 
             switch (pilihan) {
                 case 1:
-                    tambahData(sc);
+                    tambahKrs(sc);
                     break;
                 case 2:
                     tampilDaftar(sc);
@@ -35,7 +35,7 @@ public class krsdiyah {
         } while (pilihan != 4);
     }
 
-    static void tambahData(Scanner sc) {
+    static void tambahKrs(Scanner sc) {
         
     }
 
