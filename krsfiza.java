@@ -1,67 +1,121 @@
 import java.util.Scanner;
 
 public class krsfiza {
-    static String[][] krs = new String[10][5];
-    static String[] data = new String[2];
-
+    static String[][] krs = new String[100][5];
+    static int data = 0;
+    
     public static void tambahData(Scanner sc) {
+        String nama, nim, kodeMatkul, namaMatkul;
+        int jumlahSks;
+
         System.out.println("--- Tambah Data KRS ---");
         System.out.print("nama mahasiswa: ");
-        data[1] = sc.nextLine();
-        sc.nextLine();
+        nama = sc.nextLine();
         System.out.print("NIM: ");
-        data[0] = sc.nextLine();
+        nim = sc.nextLine();
 
         for (int i = 0; i < krs.length; i++) {
-            System.out.print("Kode matkul: ");
-            krs[i][0] = sc.nextLine();
-            System.out.print("Nama matkul: ");
-            krs[i][1] = sc.nextLine();
-            System.out.print("Jumlah SKS: ");
-            krs[i][2] = sc.nextLine();
-            
+            while (true) {
+                System.out.print("Kode matkul: ");
+                kodeMatkul = sc.nextLine();
+                System.out.print("Nama matkul: ");
+                namaMatkul = sc.nextLine();
+                System.out.print("Jumlah SKS: ");
+                jumlahSks = sc.nextInt();
+                sc.nextLine();
+                if (jumlahSks >= 1 && jumlahSks <= 3) {
+                    System.out.println("Data berhasil ditambahkan");
+                    break;
+                } else {
+                    System.out.println("Jumlah SKS tida valid! SKS harus anatara 1 dan 3");
+                    continue;
 
+                }
+                
+            }
+            
+            krs[data][0] = nim;
+            krs[data][1] = nama;
+            krs[data][2] = kodeMatkul;
+            krs[data][3] = namaMatkul;
+            krs[data][4] = Integer.toString(jumlahSks);
+            data++;
+            
             System.out.print("Masukkan matkul lainnya (y/t)? ");
             String pilih = sc.nextLine();
-
+            
             if (pilih.equalsIgnoreCase("t")) {
                 break;
             }
         }
-
+        System.out.println("Total SKS yang diambil: " + hitungTotalSks(nim));
     }
-
-    public static void tampilData(Scanner sc) {
-
-        System.out.println("\ndata mata kuliah");
-        System.out.println("Nama mahasiswa:\t " + data[1]);
-        System.out.println("NIM:\t " + data[0]);
-        System.out.printf("%s \t %s \t %s", "Kode Matkul", "Nama matkul", "Jumlah SKS");
-        for (int i = 0; i < krs.length; i++) {
-            System.out.printf("%s \t %s \t %s", krs[i][0], krs[i][1], krs[i][2]);
+    public static int hitungTotalSks(String nim){
+        int totalSKS = 0;
+        for (int i = 0; i < data; i++) {
+            if (krs[i][0].equals(nim)) {
+                totalSKS += Integer.parseInt(krs[i][4]);
+            }
         }
+        return totalSKS;
+    }
+    public static void tampilData(Scanner sc) {
+        
+        String nim;
+        int totalSKS = 0;
+
+        System.out.println("--- Tampilkan Daftar KRS Mahasiswa");
+        System.out.print("Masukkan NIM Mahasiswa : ");
+        // sc.nextLine();
+        nim = sc.nextLine();
+        // sc.nextLine();
+
+        // boolean search = false;
+        System.out.println("\ndata mata kuliah");
+        System.out.printf("%-12s %-20s %-10s %-25s %-10s\n", "NIM", "Nama", "Kode MK", "Nama Mata Kuliah", "SKS");
+        for (int i = 0; i < data; i++) {
+            if (nim.equals(krs[i][0])) { 
+                // search = true;
+                totalSKS += Integer.parseInt(krs[i][4]);
+                System.out.printf("%-12s %-20s %-10s %-25s %-10s\n", krs[i][0], krs[i][1], krs[i][2], krs[i][3], krs[i][4]);
+            } 
+        }
+        
+        System.out.println("Total SKS: " + hitungTotalSks(nim));
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("=================================");
-            System.out.println("===== Sistem pemantauan KRS =====");
-            System.out.println("=================================");
-            System.out.println("1. Tambah data KRS");
+        int pilihan;
+        do {
+            System.out.println("=== Sistem Pemantauan KRS Mahasiswa ===");
+            System.out.println("1. Tambah Data KRS");
             System.out.println("2. Tampilkan Daftar KRS Mahasiswa");
-            System.out.println("3. Analisis data KRS");
+            System.out.println("3. Analisis Data KRS");
             System.out.println("4. Keluar");
-
             System.out.print("Pilih menu: ");
-            int menu = sc.nextInt();
+            pilihan = sc.nextInt();
+            sc.nextLine(); 
 
-            if (menu == 1) {
-                tambahData(sc);
-            } else if (menu == 2) {
-                tampilData(sc);
+            switch (pilihan) {
+                case 1:
+                    tambahData(sc);
+                    break;
+                case 2:
+                    tampilData(sc);;
+                    break;
+                case 3:
+                    // analisisJumlah(sc);
+                    break;
+                case 4:
+                    System.out.println("Terima kasih!");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid! Silahkan input ulang.");
+                    continue;
             }
-        }
+
+        } while (pilihan != 4);
     }
+
 }
