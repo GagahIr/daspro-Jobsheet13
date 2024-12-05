@@ -104,7 +104,6 @@ public class krsfiza {
                 hitungMahasiswa++;
             }
         }
-
         System.out.println("--- Analisis Data KRS ---");
         System.out.println("Jumlah mahasiswa yang mengambil SKS kurang dari 20 : " + hitungMahasiswa);
     }
