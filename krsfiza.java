@@ -2,11 +2,12 @@ import java.util.Scanner;
 
 public class krsfiza {
     static String[][] krs = new String[100][5];
-    static int data = 0, totalSKS = 0;
+    static int data = 0;
 
     public static void tambahData(Scanner sc) {
         String nama, nim, kodeMatkul, namaMatkul;
         int jumlahSks;
+        int totalSKS = 0;
 
         System.out.println("--- Tambah Data KRS ---");
         System.out.print("nama mahasiswa: ");
@@ -71,7 +72,7 @@ public class krsfiza {
     public static void tampilData(Scanner sc) {
 
         String nim;
-        int totalSKS = 0;
+        int tampilTotalSKS = 0;
 
         System.out.println("--- Tampilkan Daftar KRS Mahasiswa");
         System.out.print("Masukkan NIM Mahasiswa : ");
@@ -84,7 +85,7 @@ public class krsfiza {
         for (int i = 0; i < data; i++) {
             if (nim.equals(krs[i][0])) {
                 // search = true;
-                totalSKS += Integer.parseInt(krs[i][4]);
+                tampilTotalSKS += Integer.parseInt(krs[i][4]);
                 System.out.printf("%-12s %-20s %-10s %-25s %-10s\n", krs[i][0], krs[i][1], krs[i][2], krs[i][3],
                         krs[i][4]);
             }
@@ -94,19 +95,32 @@ public class krsfiza {
     }
 
     public static void analisisJumlah() {
-        int hitungMahasiswa = 0;
-
+        int count = 0;
+    
         for (int i = 0; i < data; i++) {
             String nim = krs[i][0];
-            int totalSksMahasiswa = hitungTotalSks(nim);
+            boolean sudahDihitung = false;
+    
 
-            if (totalSksMahasiswa < 20) {
-                hitungMahasiswa++;
+            for (int j = 0; j < i; j++) {
+                if (krs[j][0].equals(nim)) {
+                    sudahDihitung = true;
+                    break;
+                }
+            }
+
+            if (!sudahDihitung) {
+                int totalSksMahasiswa = hitungTotalSks(nim);
+    
+                if (totalSksMahasiswa < 20) {
+                    count++;
+                }
             }
         }
+    
         System.out.println("--- Analisis Data KRS ---");
-        System.out.println("Jumlah mahasiswa yang mengambil SKS kurang dari 20 : " + hitungMahasiswa);
-    }
+        System.out.println("Jumlah mahasiswa yang mengambil kurang dari 20 SKS: " + count);
+    }    
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
